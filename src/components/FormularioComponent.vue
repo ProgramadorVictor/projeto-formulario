@@ -8,25 +8,30 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
-                            <input type="text" class="form-control" v-model="form.nome">
+                            <input type="text" class="form-control" value="Um nome qualquer" v-model="form.nome">
+                            <!-- o atributo value se torna inútil se usamos juntamente com v-model. -->
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">E-mail:</label>
                         <div class="col">
-                            <input type="email" class="form-control" v-model="form.email">
+                            <!-- utilizando encadeamendo de modificadores de v-model.lazy.trim -->
+                            <input type="email" class="form-control" v-model.lazy.trim="form.email">
+                            <!-- utilização do modificador lazy no v.model para atualização de modo lento/tardio, ao trocar o foco do input as informações aparecem. -->
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Senha:</label>
                         <div class="col">
-                            <input type="password" class="form-control" v-model="form.senha">
+                            <input type="password" class="form-control" v-model.trim="form.senha">
+                            <!-- remove espaços nas laterais do input. -->
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Idade:</label>
                         <div class="col">
-                            <input type="number" class="form-control" v-model="form.idade">
+                            <input type="number" class="form-control" v-model.number="form.idade">
+                            <!-- utilizando number para deixar uma 'string' que possa ser transformado em number. '123' = 123 -->
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -164,7 +169,7 @@
                 <span class="fs-4">ESTADO DO OBJETO</span>
                 <hr>
                 <div class="mb-5 row">
-                    <spam>Estado do objeto</spam>
+                    <span>{{ form }}</span>
                 </div>
 
                 <span class="fs-4">SAÍDA DE DADOS</span>
