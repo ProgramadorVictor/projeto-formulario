@@ -101,8 +101,9 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Telefone:</label>
                         <div class="col">
-                            <input type="tel" class="form-control" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}">
-                            <small class="text-muted">Formato: 11 97777-5555</small>
+                            <!-- Diretiva disponivel pela instalação do plugin maska -->
+                            <input type="text" class="form-control" v-maska="'(##) #####-####'" v-model="form.telefone">
+                            <small class="text-muted">Formato: (11) 97777-5555</small>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -206,7 +207,7 @@
                     </ul>
                 </div>
                 <div class="mb-3 row">
-                    <span>Telefone:</span>
+                    <span>Telefone: {{ form.telefone }}</span>
                 </div>
                 <div class="mb-3 row">
                     <span>Data:</span>
@@ -254,6 +255,7 @@ export default {
             licenca: 'NÃO',
             interesses: [],
             genero: '',
+            telefone: '',
         }
     })
 }
