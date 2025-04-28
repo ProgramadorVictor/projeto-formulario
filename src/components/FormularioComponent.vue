@@ -207,7 +207,9 @@
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Upload:</label>
                         <div class="col">
-                            <input type="file" class="form-control">
+                            <input type="file" class="form-control" multiple @change="selecionarArquivos"> <!-- Desta forma, automaticamente manda o $event, como se fosse @change="selecionarArquivos($event)" -->
+                            <!-- <input type="file" class="form-control" multiple @change="selecionarArquivos($event)"> -->
+                            <!-- 'multiple' com este atributo, podemos atribuir vários arquivos em um input file. -->
                         </div>
                     </div>
                     <hr>
@@ -321,6 +323,9 @@
                 </div>
                 <div class="mb-3 row">
                     <span>Upload:</span>
+                    <ul>
+                        <li v-for="(arquivo,index) in form.arquivos" :key="index">{{ arquivo.name }}</li>
+                    </ul>
                 </div>  
             </div>
         </div>
@@ -359,9 +364,15 @@ export default {
             hora: '',
             cor: '',
             alcance: 5,
-            escondido: 'Esse input está escondido'
+            escondido: 'Esse input está escondido',
+            arquivos: ''
         }
     }),
+    methods:{
+        selecionarArquivos(event){
+            this.form.arquivos = event.target.files
+        }
+    },
     created(){ //Criação do componente, associamos o atributo de data 'moment' adicionamos a lib moment ao atributo de data.
         this.moment = moment; //Após a criação do componente é adicionado o 'moment' de ' import moment from 'moment' '
     }
