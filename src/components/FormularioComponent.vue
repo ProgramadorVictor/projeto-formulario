@@ -212,6 +212,12 @@
                             <!-- 'multiple' com este atributo, podemos atribuir vários arquivos em um input file. -->
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Descrição:</label>
+                        <div class="col">
+                            <textarea name="" id="" class="form-control" rows="3" v-model="form.descricao"></textarea>
+                        </div>
+                    </div>
                     <hr>
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
@@ -326,7 +332,13 @@
                     <ul>
                         <li v-for="(arquivo,index) in form.arquivos" :key="index">{{ arquivo.name }}</li>
                     </ul>
-                </div>  
+                </div>
+                <div class="mb-3 row">
+                    <span>Descrição:</span>
+                    <!-- Ambos os abaixos preservam o aspecto visual do texto que é digitado no textarea, com as quebras de linhas. -->
+                    <!-- <pre>{{ form.descricao }}</pre> -->
+                    <div style="white-space: pre"> {{ form.descricao }}</div>
+                </div>
             </div>
         </div>
 
@@ -362,10 +374,11 @@ export default {
             mes: '',
             semana: '',
             hora: '',
-            cor: '',
+            cor: '#6c757d',
             alcance: 5,
             escondido: 'Esse input está escondido',
-            arquivos: ''
+            arquivos: '',
+            descricao: '',
         }
     }),
     methods:{
