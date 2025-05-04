@@ -51,7 +51,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Licença:</label>
                         <div class="col">
@@ -68,7 +67,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Interesses:</label>
                         <div class="col">
@@ -155,7 +153,6 @@
                             <small class="text-muted">Formato: Sem padrão</small>
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Data:</label>
                         <div class="col">
@@ -218,6 +215,17 @@
                             <textarea name="" id="" class="form-control" rows="3" v-model="form.descricao"></textarea>
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Avaliação:</label>
+                        <div class="col">
+                            <!-- Recebendo evento do componente filho 'avaliar' e recebendo o valor, atribuindo a 'form.avaliacao' com v-model escutando o evento 'update' -->
+                            <input-estrelas-component :numero-estrelas="5" v-model:avaliar="form.avaliacao"/>
+
+                            <!-- Abaixo uma forma comum que usamos para receber eventos de componentes filhos para os pais. -->
+                            <!-- <input-estrelas-component :numero-estrelas="5" @avaliar="form.avaliacao = $event"/> -->
+                            <!-- Recebendo evento do componente filho 'avaliar' e recebendo o valor, atribuindo a 'form.avaliacao' -->
+                        </div>
+                    </div>
                     <hr>
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
@@ -242,14 +250,13 @@
                 </form>
             </div>
 
-            
+
             <div class="col-6 text-white bg-secondary" :style="'background-color:'+form.cor+'!important'">
                 <span class="fs-4">ESTADO DO OBJETO</span>
                 <hr>
                 <div class="mb-5 row">
                     <span>{{ form }}</span>
                 </div>
-
                 <span class="fs-4">SAÍDA DE DADOS</span>
                 <hr>
                 <div class="mb-3 row">
@@ -357,16 +364,18 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </template>
-
 <script>
 import moment from 'moment' //Está sendo instalada de modo local.
 console.log(moment)
+
+import InputEstrelasComponent from './InputEstrelasComponent.vue'
 export default {
     name: 'FormularioComponent',
+    components:{
+        InputEstrelasComponent
+    },
     data: () => ({
         cursos: [
             {id: '1', curso: 'Banco de dados relacionais'},
@@ -377,7 +386,7 @@ export default {
         moment: {}, //Pode ser qualquer nome, usamos um atributo que criamos no Vue para que ele receba as propriedades da lib moment que é uma lib do js.
         form: {},
         formEstadoInicial: {
-            nome: 'Um nome qualquer',
+            nome: 'Victor',
             email: '',
             senha: '',
             idade: '',
@@ -403,6 +412,7 @@ export default {
             arquivos: '',
             descricao: '',
             curso: '',
+            avaliacao: ''
         }
     }),
     methods:{
