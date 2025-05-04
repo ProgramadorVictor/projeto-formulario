@@ -4,7 +4,7 @@
             <div class="col-6 bg-light">
                 <span class="fs-4">ENTRADA DE DADOS</span>
                 <hr>
-                <form>
+                <form @submit.prevent="enviar()">
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
@@ -222,8 +222,10 @@
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
                             <button class="btn btn-secondary" type="reset">Limpar</button>
-                            <button class="btn btn-success" type="button">Enviar (btn)</button>
+                            <button class="btn btn-success" type="button" @click="enviar()">Enviar (btn)</button>
+                            <!-- Ao utilizar o button, a lógica é a mesma porém o evento muda de 'submit' para 'click'. -->
                             <button class="btn btn-success" type="submit">Enviar (submit)</button>
+                            <!-- Ao utilizar o submit, é colocado na tag form @submit. -->
                         </div>                        
                     </div>
                     <div class="mb-3 row">
@@ -403,6 +405,11 @@ export default {
     methods:{
         selecionarArquivos(event){
             this.form.arquivos = event.target.files
+        },
+        enviar(){
+            const formEnvio = Object.assign({}, this.form);
+            console.log(formEnvio);
+            //Requisição HTTP, que vai ser enviada para o back-end da aplicação e futuramente retornará uma promise para tomar ações equivalentes ao retorno.
         }
     },
     created(){ //Criação do componente, associamos o atributo de data 'moment' adicionamos a lib moment ao atributo de data.
