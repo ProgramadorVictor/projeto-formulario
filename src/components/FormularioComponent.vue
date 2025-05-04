@@ -226,7 +226,15 @@
                             <button class="btn btn-success" type="submit">Enviar (submit)</button>
                         </div>                        
                     </div>
-                   
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Cursos:</label>
+                        <div class="col">
+                            <select class="form-select" v-model="form.curso">
+                                <option disabled value="">Escolha uma opção</option>
+                                <option v-for="curso in cursos" :key="curso.id" :value="curso.id"> {{ curso.curso }}</option>
+                            </select>
+                        </div>                      
+                    </div>
                 </form>
             </div>
 
@@ -339,6 +347,10 @@
                     <!-- <pre>{{ form.descricao }}</pre> -->
                     <div style="white-space: pre"> {{ form.descricao }}</div>
                 </div>
+                <div class="mb-3 row">
+                    <span>Curso:</span>
+                    <span> {{ form.curso }}</span>
+                </div>
             </div>
         </div>
 
@@ -352,6 +364,12 @@ console.log(moment)
 export default {
     name: 'FormularioComponent',
     data: () => ({
+        cursos: [
+            {id: '1', curso: 'Banco de dados relacionais'},
+            {id: '2', curso: 'Desenvolvimento web avançado com Vue'},
+            {id: '3', curso: 'Desenvolvimento web avançado com Laravel'},
+            {id: '4', curso: 'Curso completo do desenvolvedor NodeJS e MongoDB'},
+        ],
         moment: {}, //Pode ser qualquer nome, usamos um atributo que criamos no Vue para que ele receba as propriedades da lib moment que é uma lib do js.
         form: {
             nome: '',
@@ -379,6 +397,7 @@ export default {
             escondido: 'Esse input está escondido',
             arquivos: '',
             descricao: '',
+            curso: '',
         }
     }),
     methods:{
