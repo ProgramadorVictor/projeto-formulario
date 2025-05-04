@@ -4,11 +4,11 @@
             <div class="col-6 bg-light">
                 <span class="fs-4">ENTRADA DE DADOS</span>
                 <hr>
-                <form @submit.prevent="enviar()">
+                <form @submit.prevent="enviar()" @reset.prevent="resetar()">
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
-                            <input type="text" class="form-control" value="Um nome qualquer" v-model="form.nome">
+                            <input type="text" class="form-control" value="" v-model="form.nome">
                             <!-- o atributo value se torna inútil se usamos juntamente com v-model. -->
                         </div>
                     </div>
@@ -221,7 +221,9 @@
                     <hr>
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
-                            <button class="btn btn-secondary" type="reset">Limpar</button>
+                            <button class="btn btn-secondary" type="button" @click="resetar()">Limpar</button>
+                            <!-- Acima, chamamos o reset com base no @click e função resetar, sem usar o tipo 'reset' para o button -->
+                            <button class="btn btn-secondary" type="reset">Limpar (reset)</button>
                             <button class="btn btn-success" type="button" @click="enviar()">Enviar (btn)</button>
                             <!-- Ao utilizar o button, a lógica é a mesma porém o evento muda de 'submit' para 'click'. -->
                             <button class="btn btn-success" type="submit">Enviar (submit)</button>
@@ -373,8 +375,9 @@ export default {
             {id: '4', curso: 'Curso completo do desenvolvedor NodeJS e MongoDB'},
         ],
         moment: {}, //Pode ser qualquer nome, usamos um atributo que criamos no Vue para que ele receba as propriedades da lib moment que é uma lib do js.
-        form: {
-            nome: '',
+        form: {},
+        formEstadoInicial: {
+            nome: 'Um nome qualquer',
             email: '',
             senha: '',
             idade: '',
@@ -410,10 +413,15 @@ export default {
             const formEnvio = Object.assign({}, this.form);
             console.log(formEnvio);
             //Requisição HTTP, que vai ser enviada para o back-end da aplicação e futuramente retornará uma promise para tomar ações equivalentes ao retorno.
+        },
+        resetar(){
+            this.form = Object.assign({}, this.formEstadoInicial);
+            //Definição de um atributo no Vue, com as especificações inicias e atribuindo a outro que será usado futuramente.
         }
     },
     created(){ //Criação do componente, associamos o atributo de data 'moment' adicionamos a lib moment ao atributo de data.
         this.moment = moment; //Após a criação do componente é adicionado o 'moment' de ' import moment from 'moment' '
+        this.resetar();
     }
 }
 </script>
